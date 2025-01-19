@@ -33,11 +33,20 @@ namespace OrangeHRMSeleniumProject
         //method to get the DriverType
         private IWebDriver GetDriverType(DriverType driverType)
         {
+            var chromeOptions = new ChromeOptions();
+            chromeOptions.AddArguments("--headless=new");
+
+            var edgeOptions = new EdgeOptions();
+            edgeOptions.AddArguments("headless");
+
+            var firefoxOptions = new FirefoxOptions();
+            firefoxOptions.AddArguments("--headless");
+
             return driverType switch
             {
-                DriverType.Chrome => new ChromeDriver(),
-                DriverType.Firefox => new FirefoxDriver(),
-                DriverType.Edge => new EdgeDriver(),
+                DriverType.Chrome => new ChromeDriver(chromeOptions),
+                DriverType.Firefox => new FirefoxDriver(firefoxOptions),
+                DriverType.Edge => new EdgeDriver(edgeOptions),
                 _ => _driver
             };
         }
